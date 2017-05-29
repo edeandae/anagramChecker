@@ -1,22 +1,13 @@
 var word="abcde"
 
 var anagram="acbde"
-var anagramList=["abced","bscade","abced","adsfg"];
+var anagramList=["abcde","b","a","abced","bscade","abced","adsfg"];
 var wordDict = {};
 
 
-/* //example on traversing dictionaries
-var brothers = {
-  "juan":30,
-  "nora":28,
-  "yael":42
-};
-for(var index in brothers){
-  console.log(brothers[index])
-}
-*/
 
-function newChecker(anagram){ 
+//transposes a string into its dicionary version
+function dictionaryCreator(word){
   for(var index in word){
     var letter = word[index];
     if(wordDict[letter]){
@@ -26,34 +17,35 @@ function newChecker(anagram){
       wordDict[letter] = 1;
     }
   }
-  //console.log("the dictionary", wordDict);
-  for(var index in anagram){
-    var letter = anagram[index];
-    if(wordDict[letter]){
-      wordDict[letter]--;
+};
+
+function checkIfAnagram(originalDict , test){
+
+  if(word.length !== test.length){
+    return false;
+  }
+
+  for(var i in test){
+    var letter = test[i];
+    if(originalDict[letter] < 1){
+      return false;
     }
     else{
-      wordDict[letter]=-1;
-    }
+      originalDict[letter] --;
+    } 
   }
-  //console.log("the compared dict", wordDict)
-  var count=0
-  for(var index in wordDict){
-    count=count+Math.abs(wordDict[index]);
-  }
-  //console.log(count)
-  if(count===0){
-    console.log(anagram, " is an anagram of ", word)
-  }
-  else console.log(anagram, " is not an anagram of ", word)
-  wordDict={};//reseting the dictionary
-}
 
-//newTests for single one, it works
-//newChecker(anagram);
-
+  return true;
+};
 
 //multiple checks
 for(var index in anagramList){
-  newChecker(anagramList[index]);
+  wordDict={};
+  dictionaryCreator(word);
+  var result = checkIfAnagram(wordDict,anagramList[index]);
+
+  if(result){
+    console.log(anagramList[index], " is an anagram of ", word);
+  }
+  else console.log(anagramList[index], " is not an anagram of ", word);
 }
