@@ -1,7 +1,7 @@
 var word="abcde"
 
 var anagram="acbde"
-var anagramList=["abced","bscade","abced","adsfg"];
+var anagramList=["a","abced","bscade","abced","adsfg"];
 var wordDict = {};
 
 
@@ -16,7 +16,8 @@ for(var index in brothers){
 }
 */
 
-function newChecker(anagram){ 
+//transposes a string into its dicionary version
+function dictionaryCreator(word){
   for(var index in word){
     var letter = word[index];
     if(wordDict[letter]){
@@ -26,7 +27,10 @@ function newChecker(anagram){
       wordDict[letter] = 1;
     }
   }
-  //console.log("the dictionary", wordDict);
+}
+
+//checks if the given string is an anagram of the word
+function anagramComparison(anagram){
   for(var index in anagram){
     var letter = anagram[index];
     if(wordDict[letter]){
@@ -36,12 +40,15 @@ function newChecker(anagram){
       wordDict[letter]=-1;
     }
   }
-  //console.log("the compared dict", wordDict)
+}
+
+function newChecker(anagram){ 
+  dictionaryCreator(word);
+  anagramComparison(anagram)
   var count=0
   for(var index in wordDict){
     count=count+Math.abs(wordDict[index]);
   }
-  //console.log(count)
   if(count===0){
     console.log(anagram, " is an anagram of ", word)
   }
