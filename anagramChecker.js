@@ -63,10 +63,35 @@ function newChecker(anagram){
 //newTests for single one, it works
 //newChecker(anagram);
 
+function checkIfAnagram(originalDict , test){
+
+  if(word.length !== test.length){
+    return false
+  }
+
+  for(var i in test){
+    var letter = test[i];
+    if(originalDict[letter] < 1){
+      return false
+    }
+    else{
+      originalDict[letter] --;
+    } 
+  }
+
+  return true
+}
+
+//for modified check if Anagram
+
 
 //multiple checks
 for(var index in anagramList){
-  var result=newChecker(anagramList[index]);
+  wordDict={}
+  dictionaryCreator(word)
+  var result = checkIfAnagram(wordDict,anagramList[index])
+
+  //var result=newChecker(anagramList[index]);
   //console.log(result)
 
   if(result){
